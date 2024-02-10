@@ -14,7 +14,7 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        entrypoint = pkgs.writeScript "docker-entrypoint.sh" ''
+        entrypoint = pkgs.writeScriptBin "entrypoint" ''
           #!${pkgs.stdenv.shell}
           mkdir /usr
           ln -s bin /usr/bin
@@ -38,6 +38,7 @@
           name = myRustBuild.pname;
           tag = "latest";
           contents = [
+            entrypoint
             pkgs.coreutils
             pkgs.bash
             myRustBuild
