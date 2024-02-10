@@ -1,0 +1,8 @@
+/target
+/packages
+/.apk-cache
+.direnv
+.envrc
+sbom*
+*.tar
+result
