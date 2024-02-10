@@ -27,7 +27,7 @@
         };
         myRustBuild = rustPlatform.buildRustPackage {
           pname = "aws-image-tag";
-          version = rustVersion;
+          version = "0.3.1";
           src = ./.;
           cargoLock.lockFile = ./Cargo.lock;
           nativeBuildInputs = [ pkgs.pkg-config ];
