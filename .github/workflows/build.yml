@@ -25,5 +25,5 @@ jobs:
     - run: |
         nix build
         docker load < result
-        docker tag aws-image-tag:latest ghcr.io/eirikaskheim/aws-image-tag:latest
-        docker push ghcr.io/eirikaskheim/aws-image-tag
+        docker tag aws-image-tag:latest ghcr.io/x13consulting/aws-image-tag:latest
+        docker push ghcr.io/x13consulting/aws-image-tag
