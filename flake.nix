@@ -34,6 +34,7 @@
           contents = [
             pkgs.coreutils
             pkgs.bash
+            pkgs.cacert
             myRustBuild
           ];
           config = {
