@@ -14,12 +14,6 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        entrypoint = pkgs.writeScriptBin "entrypoint" ''
-          #!${pkgs.stdenv.shell}
-          # mkdir /usr
-          # ln -s bin /usr/bin
-          exec aws-image-tag
-        '';
         rustVersion = pkgs.rust-bin.stable.latest.default;
         rustPlatform = pkgs.makeRustPlatform {
           cargo = rustVersion;
@@ -38,18 +32,17 @@
           name = myRustBuild.pname;
           tag = "latest";
           contents = [
-            entrypoint
             pkgs.coreutils
             pkgs.bash
             myRustBuild
           ];
           config = {
-            Cmd = [ entrypoint ];
+            Cmd = [ myRustBuild ];
           };
           runAsRoot = ''
             #!${pkgs.stdenv.shell}
             mkdir /usr
-            ln -s bin /usr/bin
+            ln -s /bin /usr/bin
           '';
         };
       in
