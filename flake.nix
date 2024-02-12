@@ -16,8 +16,8 @@
         };
         entrypoint = pkgs.writeScriptBin "entrypoint" ''
           #!${pkgs.stdenv.shell}
-          mkdir /usr
-          ln -s bin /usr/bin
+          # mkdir /usr
+          # ln -s bin /usr/bin
           exec aws-image-tag
         '';
         rustVersion = pkgs.rust-bin.stable.latest.default;
@@ -34,7 +34,7 @@
           buildInputs = [ pkgs.openssl ];
           pathsToLink = [ "/bin" ];
         };
-        dockerImage = pkgs.dockerTools.buildLayeredImage {
+        dockerImage = pkgs.dockerTools.buildImage {
           name = myRustBuild.pname;
           tag = "latest";
           contents = [
@@ -46,6 +46,11 @@
           config = {
             Cmd = [ entrypoint ];
           };
+          runAsRoot = ''
+            #!${pkgs.stdenv.shell}
+            mkdir /usr
+            ln -s bin /usr/bin
+          '';
         };
       in
       with pkgs;
